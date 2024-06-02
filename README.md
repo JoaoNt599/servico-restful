@@ -8,6 +8,8 @@
 
     python -m venv venv
 
+    git clone https://github.com/JoaoNt599/API-Restful-Escola.git
+
     git switch develop
 
     pip install -r requirements.txt 
