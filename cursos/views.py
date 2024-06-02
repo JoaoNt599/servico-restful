@@ -12,6 +12,12 @@ class CursoAPIView(APIView):
         cursos = Curso.objects.all()
         serializer = CursoSerializer(cursos, many=True)
         return Response(serializer.data)
+    
+    def post(self, request):
+        serializer = CursoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
 
 class AvalicaoAPIView(APIView):
 
@@ -19,3 +25,9 @@ class AvalicaoAPIView(APIView):
         avaliacoes = Avaliacao.objects.all()
         serializer = AvalicaoSerializer(avaliacoes, many=True)
         return Response(serializer.data)
+
+    def post(self, request):
+        serializer = AvalicaoSerializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data, status=status.HTTP_201_CREATED)
