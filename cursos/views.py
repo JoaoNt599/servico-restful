@@ -54,6 +54,13 @@ class CursoViewSet(viewsets.ModelViewSet):
         return Response(serializer.data)
 
 
+""" ViewSer Padrão 
 class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.all()
     serializer_class = AvalicaoSerializer 
+"""
+
+# ViewSet Customizada
+class AvaliacaoViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
+    queryset = Avaliacao.objects.all()
+    serializer_class = AvalicaoSerializer
