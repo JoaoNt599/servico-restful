@@ -8,6 +8,8 @@ from rest_framework.decorators import action
 from rest_framework.response import Response
 
 
+# ========================= API V1 ==============================
+
 class CursoAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
@@ -37,4 +39,16 @@ class AvalicoesAPIView(generics.ListCreateAPIView):
             return self.queryset.filter(curso_id = self.kwargs.get('curso_pk'))
         return self.queryset.all()
     
-   
+
+# ========================= API V2 ==============================
+
+
+class CursoViewSet(viewsets.ModelViewSet):
+    queryset = Curso.objects.all()
+    serializer_class = CursoSerializer
+
+    @action(detail=True, methods=['get'])
+    def avaliacoes(self, request, pk=None):
+        curso = self.get_object()
+        serializer = AvalicaoSerializer(curso.avaliacoes.all(), many=True)
+        return Response(serializer.data)
