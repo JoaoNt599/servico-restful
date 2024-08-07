@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from rest_framework import generics
 from .models import Curso, Avaliacao
-from .serializers import CursoSerializer, AvalicaoSerializer
+from .serializers import CursoSerializer, AvaliacaoSerializer
 from rest_framework.generics import get_object_or_404
 from rest_framework import viewsets, mixins
 from rest_framework.decorators import action
@@ -14,9 +14,9 @@ class CursoAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Curso.objects.all()
     serializer_class = CursoSerializer
 
-class AvalicaoAPIView(generics.RetrieveUpdateDestroyAPIView):
+class AvaliacaoAPIView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Avaliacao.objects.all()
-    serializer_class = AvalicaoSerializer
+    serializer_class = AvaliacaoSerializer
 
     def get_object(self):
         if self.kwargs.get('curso_pk'):
@@ -32,7 +32,7 @@ class CursosAPIView(generics.ListCreateAPIView):
 
 class AvalicoesAPIView(generics.ListCreateAPIView):
     queryset = Avaliacao.objects.all()
-    serializer_class = AvalicaoSerializer
+    serializer_class = AvaliacaoSerializer
 
     def get_queryset(self):
         if self.kwargs.get('curso_pk'):
@@ -50,17 +50,17 @@ class CursoViewSet(viewsets.ModelViewSet):
     @action(detail=True, methods=['get'])
     def avaliacoes(self, request, pk=None):
         curso = self.get_object()
-        serializer = AvalicaoSerializer(curso.avaliacoes.all(), many=True)
+        serializer = AvaliacaoSerializer(curso.avaliacoes.all(), many=True)
         return Response(serializer.data)
 
 
 """ ViewSer Padrão 
 class AvaliacaoViewSet(viewsets.ModelViewSet):
     queryset = Avaliacao.objects.all()
-    serializer_class = AvalicaoSerializer 
+    serializer_class = AvaliacaoSerializer 
 """
 
 # ViewSet Customizada
 class AvaliacaoViewSet(mixins.CreateModelMixin, mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin, viewsets.GenericViewSet):
     queryset = Avaliacao.objects.all()
-    serializer_class = AvalicaoSerializer
+    serializer_class = AvaliacaoSerializer
