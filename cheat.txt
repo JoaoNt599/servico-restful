@@ -11,3 +11,6 @@ user = User.objects.get(id=1)
 token = Token.objects.create(user=user)
 token.key
 f73861f1961bff2a5a65e2cf5541a5d750070afd
+
+
+token user teste: Token d43619ff4c542b1ed3c086e8ed99b228641ed947
